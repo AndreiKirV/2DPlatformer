@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private int _health = 5;
+    [SerializeField] private float _speed = 5;
+    [SerializeField] private float _jumpForce = 5;
 
+    public float Speed => _speed;
+    public float JumpForce => _jumpForce;
 }
