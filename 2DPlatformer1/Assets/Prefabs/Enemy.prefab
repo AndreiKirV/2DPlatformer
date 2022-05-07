@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7432835781163502335}
   - component: {fileID: 7432835781163502333}
   - component: {fileID: 7432835781163502330}
+  - component: {fileID: -807872352750855199}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -102,7 +103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4db4014bf3291a46bdd0405ee7d9620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
 --- !u!50 &7432835781163502334
 Rigidbody2D:
   serializedVersion: 4
@@ -134,7 +134,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -214,6 +214,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.63338554, y: 0.68600124}
   m_EdgeRadius: 0
+--- !u!114 &-807872352750855199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7432835781163502322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b273c9f0bc981945a6d1ca099cd5338, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coin: {fileID: 8748099902413662862, guid: f1ebcf503e09af040a5d3c53c3842f36, type: 3}
+  _amountOfCoins: 25
+  _delay: 25
 --- !u!1 &7432835782614621271
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7432835782614621271}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.35200197, y: -0.46399996, z: -83.23255}
+  m_LocalPosition: {x: 0.698, y: -0.487, z: -83.23255}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 7432835781163502320}

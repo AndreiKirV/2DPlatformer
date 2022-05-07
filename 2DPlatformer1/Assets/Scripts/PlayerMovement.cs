@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private Vector3 _startPoint;
     private bool _isGround = false;
     private bool _isWater = false;
     private bool _isFacingRight = true;
@@ -15,12 +16,12 @@ public class PlayerMovement : MonoBehaviour
         _player = GetComponent<Player>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _startPoint = GetComponent<Transform>().position;
     }
 
-     private void Update()
+    private void Update()
     {
-        TakeAction();
-        MakeAttackAnimation();
+        TakeAction();        
     }
 
     private void TakeAction()
@@ -28,7 +29,8 @@ public class PlayerMovement : MonoBehaviour
         Jump();
         MoveX();
         ChangeJumpAnimation();
-        ChangeDeadAnimation();        
+        ChangeDeadAnimation(); 
+        MakeAttackAnimation();       
     }
 
     private void Jump()
@@ -75,9 +77,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isDead)
         {
-        _animator.SetBool("Dead", true);
-        Destroy(gameObject, 2);
+        _animator.SetBool("Dead", true);  
+        Invoke("Teleport", 2);
         }
+    }
+
+    private void Teleport()
+    {
+        transform.position = _startPoint;
+        _isDead = false;
+        _animator.SetBool("Dead", false);
     }
 
     private void MakeAttackAnimation()
