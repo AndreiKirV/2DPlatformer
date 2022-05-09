@@ -13,10 +13,10 @@ public class CameraMovement : MonoBehaviour
     {
         Vector3 currentPosition = Vector3.Lerp(transform.position, _target, _speed * Time.deltaTime);
         transform.position = currentPosition;
-        _target = new Vector3(_player.position.x, DoMinY(ref _targetY), transform.position.z);
+        _target = new Vector3(_player.position.x, LimitToMinY(ref _targetY), transform.position.z);
     }
 
-    private float DoMinY(ref float targetY)
+    private float LimitToMinY(ref float targetY)
     {
         if (_player.transform.position.y < _minCameraY)
         {

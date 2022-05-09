@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
+[RequireComponent(typeof (Text))]
 public class Wallet : MonoBehaviour
 {
     [SerializeField] private Player _player;

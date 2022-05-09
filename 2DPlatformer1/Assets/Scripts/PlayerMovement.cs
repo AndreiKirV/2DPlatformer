@@ -101,16 +101,6 @@ public class PlayerMovement : MonoBehaviour
             _animator.SetTrigger(AnimatorPlayerController.Params.Attack);
         }
     }
-    public static class AnimatorPlayerController
-    {
-        public static class Params
-        {
-            public const string Attack = nameof(Attack);
-            public const string Dead = nameof(Dead);
-            public const string Jump = nameof(Jump);
-            public const string Run = nameof(Run);
-        }
-    }
 
     private void TurnLeft ()
     {

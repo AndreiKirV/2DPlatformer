@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider) 
     {
-        if(collider.tag == "Coin")
+        if(collider.gameObject.GetComponent<Coin>())
         {
         _coins ++;
         }
