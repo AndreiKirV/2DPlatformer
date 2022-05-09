@@ -8,8 +8,9 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float _distance = 10;
     [SerializeField] private Transform _grounDetector;
     
-    private bool _isRightEnd = true;
+    private bool _isRightEdgeReached = true;
     private RaycastHit2D _groundInfo;
+    private int _rotationY = -180;
 
     private void Update() 
     {
@@ -18,16 +19,9 @@ public class EnemyMovement : MonoBehaviour
 
         if (_groundInfo.collider == false)
         {
-            if (_isRightEnd == true)
-            {
-                transform.eulerAngles = new Vector3(0,-180,0);
-                _isRightEnd = false;
-            }
-            else
-            {
-                transform.eulerAngles = new Vector3(0,0,0);
-                _isRightEnd = true;
-            }
+            transform.eulerAngles = new Vector3(0,_rotationY,0);
+            _isRightEdgeReached = !_isRightEdgeReached;
+            _rotationY += 180;
         }
     }
 }

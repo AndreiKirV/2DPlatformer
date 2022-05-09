@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
         _player = GetComponent<Player>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        _startPoint = GetComponent<Transform>().position;
+        _startPoint = transform.position;
     }
 
     private void Update()
@@ -26,20 +26,25 @@ public class PlayerMovement : MonoBehaviour
 
     private void TakeAction()
     {
+        JumpOnGround();
+        MoveXOnGround();
+        ChangeJumpAnimationOnAir();
+        ChangeAnimationAtTimeDeath(); 
+        MakeAnimationAtTimeAttack();       
+    }
+
+    private void JumpOnGround()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && _isGround && !_isWater)
         Jump();
-        MoveX();
-        ChangeJumpAnimation();
-        ChangeDeadAnimation(); 
-        MakeAttackAnimation();       
     }
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _isGround && !_isWater)
         _rigidbody.AddForce(Vector2.up*_player.JumpForce, ForceMode2D.Impulse);
     }
 
-    private void MoveX()
+    private void MoveXOnGround()
     {
         if (Input.GetKey(KeyCode.D) && !_isWater)
         {
@@ -59,26 +64,26 @@ public class PlayerMovement : MonoBehaviour
     private void ChangeRunningAnimation()
     {
         if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) || !_isGround)
-        _animator.SetBool("Run", false);
+        _animator.SetBool(AnimatorPlayerController.Params.Run, false);
 
         if(_isGround && Input.GetKey(KeyCode.A) || _isGround && Input.GetKey(KeyCode.D))
-        _animator.SetBool("Run", true);
+        _animator.SetBool(AnimatorPlayerController.Params.Run, true);
     }
 
-    private void ChangeJumpAnimation()
+    private void ChangeJumpAnimationOnAir()
     {
         if (_isGround)
-        _animator.SetBool("Jump", false);
+        _animator.SetBool(AnimatorPlayerController.Params.Jump, false);
         else
-        _animator.SetBool("Jump", true);
+        _animator.SetBool(AnimatorPlayerController.Params.Jump, true);
     }
 
-    private void ChangeDeadAnimation()
+    private void ChangeAnimationAtTimeDeath()
     {
         if (_isDead)
         {
-        _animator.SetBool("Dead", true);  
-        Invoke("Teleport", 2);
+        _animator.SetBool(AnimatorPlayerController.Params.Dead, true);  
+        Invoke(nameof(Teleport), 2);
         }
     }
 
@@ -86,14 +91,24 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = _startPoint;
         _isDead = false;
-        _animator.SetBool("Dead", false);
+        _animator.SetBool(AnimatorPlayerController.Params.Dead, false);
     }
 
-    private void MakeAttackAnimation()
+    private void MakeAnimationAtTimeAttack()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            _animator.SetTrigger("Attack");
+            _animator.SetTrigger(AnimatorPlayerController.Params.Attack);
+        }
+    }
+    public static class AnimatorPlayerController
+    {
+        public static class Params
+        {
+            public const string Attack = nameof(Attack);
+            public const string Dead = nameof(Dead);
+            public const string Jump = nameof(Jump);
+            public const string Run = nameof(Run);
         }
     }
 
@@ -111,22 +126,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collider) 
     {
-        if(collider.tag == "Ground" || collider.tag == "Platform")
+        if(collider.gameObject.GetComponent<Ground>() || collider.gameObject.GetComponent<Platform>())
         _isGround = true;
 
-        if(collider.tag == "Water")
+        if(collider.gameObject.GetComponent<Water>())
         _isWater = true;
 
-        if(collider.tag == "Enemy")
+        if(collider.gameObject.GetComponent<Enemy>())
         _isDead = true;
     }
 
     private void OnTriggerExit2D(Collider2D collider) 
     {
-        if(collider.tag == "Ground" || collider.tag == "Platform")
+        if(collider.gameObject.GetComponent<Ground>() || collider.gameObject.GetComponent<Platform>())
         _isGround = false;
 
-        if(collider.tag == "Water")
+        if(collider.gameObject.GetComponent<Water>())
         _isWater = false;
     }
 

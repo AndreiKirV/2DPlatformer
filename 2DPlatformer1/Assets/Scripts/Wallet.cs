@@ -7,8 +7,15 @@ public class Wallet : MonoBehaviour
 {
     [SerializeField] private Player _player;
 
+    private Text _text;
+
+    private void Start() 
+    {
+        _text = GetComponent<Text>();
+    }
+
     private void Update() 
     {
-        GetComponent<Text>().text = $"У вас: {_player.Coints}.";
+       _text.text = $"У вас: {_player.Coins}.";
     }
 }
