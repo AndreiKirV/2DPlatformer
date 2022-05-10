@@ -9,13 +9,13 @@ public class Player : MonoBehaviour
 
     private int _coins = 0;
 
+    public int Coins => _coins;
     public float Speed => _speed;
     public float JumpForce => _jumpForce;
-    public int Coins => _coins;
 
     private void OnTriggerEnter2D(Collider2D collider) 
     {
-        if(collider.gameObject.GetComponent<Coin>())
+        if(collider.gameObject.TryGetComponent<Coin>(out Coin coin))
         {
         _coins ++;
         }

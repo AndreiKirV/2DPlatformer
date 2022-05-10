@@ -105,33 +105,33 @@ public class PlayerMovement : MonoBehaviour
     private void TurnLeft ()
     {
         if (_isFacingRight)
-            Flip();
+        Flip();
     }
 
     private void TurnRight ()
     {
         if (!_isFacingRight)
-            Flip();
+        Flip();
     }
 
     private void OnTriggerStay2D(Collider2D collider) 
     {
-        if(collider.gameObject.GetComponent<Ground>() || collider.gameObject.GetComponent<Platform>())
+        if(collider.gameObject.TryGetComponent<Ground>(out Ground ground) || collider.gameObject.TryGetComponent<Platform>(out Platform platform))
         _isGround = true;
 
-        if(collider.gameObject.GetComponent<Water>())
+        if(collider.gameObject.TryGetComponent<Water>(out Water water))
         _isWater = true;
 
-        if(collider.gameObject.GetComponent<Enemy>())
+        if(collider.gameObject.TryGetComponent<Enemy>(out Enemy enemy))
         _isDead = true;
     }
 
     private void OnTriggerExit2D(Collider2D collider) 
     {
-        if(collider.gameObject.GetComponent<Ground>() || collider.gameObject.GetComponent<Platform>())
+        if(collider.gameObject.TryGetComponent<Ground>(out Ground ground) || collider.gameObject.TryGetComponent<Platform>(out Platform platform))
         _isGround = false;
 
-        if(collider.gameObject.GetComponent<Water>())
+        if(collider.gameObject.TryGetComponent<Water>(out Water water))
         _isWater = false;
     }
 
