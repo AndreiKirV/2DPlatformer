@@ -15,6 +15,6 @@ public class Wallet : MonoBehaviour
 
     private void Update() 
     {
-       _text.text = $"У вас: {_player.Coins}.";
+       _text.text = ($"У вас: {_player.Coins}.");
     }
 }
