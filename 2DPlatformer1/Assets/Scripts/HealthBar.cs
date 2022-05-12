@@ -15,10 +15,13 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         _maxHealth = _player.MaxHealth;
+        _slider.DOValue(1, 1);
+        _text.text = ($"HP: {_player.Health}.");
     }
-    private void Update() 
+
+    public void ChangeSlider()
     {
-       _text.text = ($"HP: {_player.Health}.");
-       _slider.DOValue(_player.Health/_maxHealth, 2);
+        _slider.DOValue(_player.Health/_maxHealth, 1);
+        _text.text = ($"HP: {_player.Health}.");
     }
 }
